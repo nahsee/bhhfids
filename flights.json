@@ -1,0 +1,34 @@
+{
+  "flights": [
+    {
+      "Day": "السبت",
+      "Airline": "SV",
+      "From": "RUH",
+      "ArrivalFlight": "1737",
+      "ArrivalTime": "10:20",
+      "Destination": "RUH",
+      "DepartureFlight": "1736",
+      "DepartureTime": "11:05"
+    },
+    {
+      "Day": "السبت",
+      "Airline": "F3",
+      "From": "RUH",
+      "ArrivalFlight": "71",
+      "ArrivalTime": "13:55",
+      "Destination": "RUH",
+      "DepartureFlight": "72",
+      "DepartureTime": "14:55"
+    },
+    {
+      "Day": "الأحد",
+      "Airline": "SV",
+      "From": "JED",
+      "ArrivalFlight": "1740",
+      "ArrivalTime": "21:20",
+      "Destination": "JED",
+      "DepartureFlight": "1741",
+      "DepartureTime": "22:10"
+    }
+  ]
+}

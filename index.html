@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مطار بيشة | Bisha Airport FIDS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Inter:wght@700;900&display=swap');
+:root{--bg1:#06282b;--bg2:#031517;--teal:#27d3db;--mint:#d2ff67;--white:#fff;--muted:#b9d5d7;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:'Cairo','Inter',Arial,sans-serif;color:var(--white);background:radial-gradient(circle at 15% 15%,rgba(39,211,219,.28),transparent 25%),radial-gradient(circle at 85% 5%,rgba(210,255,103,.16),transparent 25%),linear-gradient(135deg,var(--bg1),var(--bg2))}
+.container{height:100vh;padding:22px;display:flex;flex-direction:column;gap:16px}
+.header{display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;gap:18px;padding:20px;border-radius:26px;background:rgba(255,255,255,.08);border:1px solid var(--line);box-shadow:0 22px 70px rgba(0,0,0,.25)}
+.brand{display:flex;align-items:center;gap:16px}
+.logoBox{width:155px;height:76px;border-radius:16px;background:white;color:#123;display:flex;align-items:center;justify-content:center;font-size:26px;font-family:Inter,Arial,sans-serif;font-weight:900}
+.airport-ar{font-size:34px;font-weight:900;line-height:1}
+.airport-en{font-size:20px;color:var(--muted);font-family:Inter,Arial,sans-serif;font-weight:900;margin-top:4px}
+.title{text-align:center}.title h1{margin:0;font-size:48px;line-height:1;color:var(--mint);font-weight:900}.title h2{margin:6px 0 0;font-size:29px;line-height:1;font-family:Inter,Arial,sans-serif;font-weight:900}
+.clock{text-align:left}.clock strong{display:block;font-size:44px;line-height:1;color:var(--teal);font-family:Inter,Arial,sans-serif;font-weight:900}.clock span{display:block;margin-top:8px;color:var(--muted);font-size:18px;font-weight:900}
+.notice{background:linear-gradient(90deg,var(--mint),#efffa3);color:#052729;padding:10px 18px;border-radius:18px;font-size:22px;font-weight:900;text-align:center}
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;min-height:0}
+.board{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.22)}
+.board-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:rgba(255,255,255,.08);border-bottom:1px solid var(--line)}
+.board-header h3{margin:0;font-size:36px;line-height:1;font-weight:900}.board-header span{font-family:Inter,Arial,sans-serif;color:var(--muted);font-size:21px;font-weight:900}
+.pill{direction:ltr;font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:900;background:var(--mint);color:#052729;padding:7px 12px;border-radius:999px}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{padding:12px 8px;font-size:18px;color:var(--mint);line-height:1.2;border-bottom:1px solid var(--line)}
+th small{font-family:Inter,Arial,sans-serif;color:var(--muted);font-size:12px}
+td{padding:14px 8px;text-align:center;font-size:27px;font-weight:900;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+tr:nth-child(even) td{background:rgba(255,255,255,.035)}
+.airline{color:var(--mint)}.time{color:var(--teal);font-family:Inter,Arial,sans-serif}.flight{font-family:Inter,Arial,sans-serif}
+.footer{padding:12px 18px;border-radius:18px;background:rgba(0,0,0,.24);font-size:25px;font-weight:900;text-align:center;border:1px solid var(--line)}
+.error{color:#ffdfdf}
+@media(max-width:1100px){html,body{overflow:auto}.container{height:auto}.header,.boards{grid-template-columns:1fr}.clock{text-align:center}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="header">
+<div class="brand"><div class="logoBox">Cluster2</div><div><div class="airport-ar">مطار بيشة</div><div class="airport-en">Bisha Airport</div></div></div>
+<div class="title"><h1>جدول الرحلات الأسبوعي</h1><h2>Weekly Flight Schedule</h2></div>
+<div class="clock"><strong id="clock">--:--</strong><span id="dateNow">----</span></div>
+</header>
+<div class="notice">يتم تحديث الرحلات تلقائيًا من ملف Excel عبر flights.json</div>
+<section class="boards">
+<div class="board">
+<div class="board-header"><div><h3>الوصول</h3><span>ARRIVALS</span></div><div class="pill">INBOUND</div></div>
+<table><thead><tr><th>اليوم<br><small>DAY</small></th><th>الناقل<br><small>AIRLINE</small></th><th>من<br><small>FROM</small></th><th>الرحلة<br><small>FLIGHT</small></th><th>الوصول<br><small>ARRIVAL</small></th></tr></thead><tbody id="arrivals"><tr><td colspan="5">جاري تحميل البيانات...</td></tr></tbody></table>
+</div>
+<div class="board">
+<div class="board-header"><div><h3>المغادرة</h3><span>DEPARTURES</span></div><div class="pill">OUTBOUND</div></div>
+<table><thead><tr><th>اليوم<br><small>DAY</small></th><th>الناقل<br><small>AIRLINE</small></th><th>إلى<br><small>DESTINATION</small></th><th>الرحلة<br><small>FLIGHT</small></th><th>الإقلاع<br><small>DEPARTURE</small></th></tr></thead><tbody id="departures"><tr><td colspan="5">جاري تحميل البيانات...</td></tr></tbody></table>
+</div>
+</section>
+<footer class="footer">Welcome to Bisha Airport | مرحبًا بكم في مطار بيشة</footer>
+</div>
+<script>
+const DATA_URL="./flights.json";
+function updateClock(){const now=new Date();document.getElementById("clock").textContent=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});document.getElementById("dateNow").textContent=now.toLocaleDateString("ar-SA",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}
+setInterval(updateClock,1000);updateClock();
+function clean(v){return v===undefined||v===null?"":String(v)} function time(v){return clean(v).replace(/:00(\.000)?$/,"")} function td(v,cls=""){return `<td class="${cls}">${clean(v)}</td>`}
+function rowsOf(payload){if(Array.isArray(payload))return payload;if(payload&&Array.isArray(payload.flights))return payload.flights;return[]}
+function render(rows){const arrivals=document.getElementById("arrivals");const departures=document.getElementById("departures");if(!rows.length){arrivals.innerHTML='<tr><td colspan="5" class="error">لا توجد بيانات في flights.json</td></tr>';departures.innerHTML='<tr><td colspan="5" class="error">No data</td></tr>';return}
+arrivals.innerHTML=rows.map(f=>`<tr>${td(f.Day||f.day||f["اليوم"])}${td(f.Airline||f.airline||f["الناقل"],"airline")}${td(f.From||f.from||f["جهة القدوم"])}${td(f.ArrivalFlight||f.arrivalFlight||f["رقم رحلة الوصول"],"flight")}${td(time(f.ArrivalTime||f.arrivalTime||f["وقت الوصول"]),"time")}</tr>`).join("");
+departures.innerHTML=rows.map(f=>`<tr>${td(f.Day||f.day||f["اليوم"])}${td(f.Airline||f.airline||f["الناقل"],"airline")}${td(f.Destination||f.destination||f["جهة المغادرة"])}${td(f.DepartureFlight||f.departureFlight||f["رقم رحلة المغادرة"],"flight")}${td(time(f.DepartureTime||f.departureTime||f["وقت الإقلاع"]),"time")}</tr>`).join("")}
+async function load(){try{const res=await fetch(DATA_URL+"?v="+Date.now(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const data=await res.json();render(rowsOf(data))}catch(e){console.error(e);document.getElementById("arrivals").innerHTML='<tr><td colspan="5" class="error">تعذر قراءة flights.json</td></tr>';document.getElementById("departures").innerHTML='<tr><td colspan="5" class="error">Unable to load flights.json</td></tr>'}}
+load();setInterval(load,60000);
+</script>
+</body>
+</html>
